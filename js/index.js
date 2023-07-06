@@ -25,7 +25,10 @@ githubForm.reset()
 })
 
 function getGithubUser(){
-   console.log(searchText.value)
+   const searchInput = searchText.value
+   fetch(`https://api.github.com/search/users?q=${searchInput}`)
+   .then ((response) => response.json())
+   .then ((data) => console.log(data))
 }
 
 
