@@ -2,8 +2,6 @@
 
 const mainDiv = document.querySelector("#main");
 const gitContainer = document.querySelector("#github-container");
-const userList = document.querySelector("#user-list");
-const reposList = document.querySelector("#repos-list");
 const githubForm = document.querySelector("#github-form");
 const searchText = document.getElementById("search");
 let userArray = [];
@@ -42,7 +40,8 @@ function getGithubUser(){
     })
    .then ((response) => response.json())
    .then ((searchResults) => {
-    searchResults.items.map(item => {
+     const userList = document.querySelector("#user-list");
+     searchResults.items.map(item => {
         const h2 = document.createElement("h2")
         h2.innerText = item.login
         h2.addEventListener("click", e => showUserRepos(item.login, e))
@@ -63,6 +62,8 @@ function getGithubUser(){
 }
 
 function showUserRepos(userName, e){
+    const reposList = document.querySelector("#repos-list");
+    reposList.innerHTML = ""
     e.preventDefault()
     fetch(`https://api.github.com/users/${userName}/repos`)
     .then(response => response.json())
